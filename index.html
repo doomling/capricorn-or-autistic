@@ -1,0 +1,995 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Capricorn or Autistic?</title>
+  <link rel="icon" type="image/png" href="img/capritism.png" />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Georgia", serif;
+        background: #0d0d1a;
+        color: #e8e4d9;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+      }
+
+      .card {
+        background: #16162a;
+        border: 1px solid #2e2e50;
+        border-radius: 16px;
+        max-width: 640px;
+        width: 100%;
+        padding: 40px 36px;
+        box-shadow: 0 0 60px rgba(120, 80, 200, 0.12);
+      }
+
+      /* Top bar */
+      .top-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+      }
+      .top-bar-btn {
+        background: transparent;
+        border: 1px solid #2e2e50;
+        color: #7a7a9a;
+        border-radius: 6px;
+        padding: 5px 12px;
+        font-size: 0.78rem;
+        font-family: "Georgia", serif;
+        cursor: pointer;
+        letter-spacing: 0.03em;
+        transition:
+          border-color 0.18s,
+          color 0.18s;
+      }
+      .top-bar-btn:hover {
+        border-color: #7b50c8;
+        color: #c8b8f0;
+      }
+
+      /* About page */
+      .about-heading {
+        font-size: 1.5rem;
+        color: #c8b8f0;
+        text-align: center;
+        margin-bottom: 24px;
+        letter-spacing: 0.02em;
+      }
+      .about-message {
+        font-size: 0.97rem;
+        line-height: 1.75;
+        color: #b0aac8;
+        margin-bottom: 32px;
+      }
+      .about-message p + p {
+        margin-top: 14px;
+      }
+      .about-section-title {
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: #5a5a7a;
+        margin-bottom: 14px;
+      }
+      .about-link-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 28px;
+      }
+      .about-link-list li {
+        background: #1e1e35;
+        border: 1px solid #2e2e50;
+        border-radius: 10px;
+        padding: 12px 16px;
+        font-size: 0.9rem;
+        line-height: 1.5;
+      }
+      .about-link-list a {
+        color: #9b70e8;
+        text-decoration: none;
+      }
+      .about-link-list a:hover {
+        color: #c8b8f0;
+        text-decoration: underline;
+      }
+      .about-link-list .link-desc {
+        color: #7a7a9a;
+        font-size: 0.83rem;
+        display: block;
+        margin-top: 2px;
+      }
+      .about-inclusion {
+        font-size: 0.93rem;
+        line-height: 1.75;
+        color: #b0aac8;
+        background: #1a1a30;
+        border: 1px solid #2a2a45;
+        border-radius: 10px;
+        padding: 18px 20px;
+        margin-bottom: 8px;
+        font-style: italic;
+      }
+
+      /* Header */
+      .header {
+        text-align: center;
+        margin-bottom: 36px;
+      }
+      .logo {
+        width: 96px;
+        height: auto;
+        margin-bottom: 12px;
+        opacity: 0.9;
+      }
+      .header h1 {
+        font-size: 1.9rem;
+        letter-spacing: 0.02em;
+        color: #c8b8f0;
+        line-height: 1.3;
+      }
+      .header p {
+        margin-top: 8px;
+        font-size: 0.88rem;
+        color: #7a7a9a;
+        font-style: italic;
+      }
+
+      /* Progress */
+      .progress-bar {
+        height: 4px;
+        background: #2a2a42;
+        border-radius: 2px;
+        margin-bottom: 32px;
+        overflow: hidden;
+      }
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #7b50c8, #b88ef0);
+        border-radius: 2px;
+        transition: width 0.4s ease;
+      }
+      .progress-label {
+        font-size: 0.75rem;
+        color: #5a5a7a;
+        text-align: right;
+        margin-top: 6px;
+        margin-bottom: 24px;
+      }
+
+      /* Question */
+      .question-text {
+        font-size: 1.15rem;
+        line-height: 1.6;
+        color: #ddd8f0;
+        margin-bottom: 24px;
+        min-height: 56px;
+      }
+
+      /* Options */
+      .options {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .option {
+        background: #1e1e35;
+        border: 1px solid #2e2e50;
+        border-radius: 10px;
+        padding: 14px 18px;
+        cursor: pointer;
+        font-size: 0.95rem;
+        line-height: 1.45;
+        color: #ccc8e8;
+        transition:
+          background 0.18s,
+          border-color 0.18s,
+          transform 0.12s;
+        text-align: left;
+      }
+      .option:hover {
+        background: #28284a;
+        border-color: #7b50c8;
+        transform: translateX(3px);
+      }
+      .option.selected {
+        background: #2e2060;
+        border-color: #9b70e8;
+        color: #e8e0ff;
+      }
+      .option:disabled {
+        cursor: default;
+      }
+
+      /* Next button */
+      .btn {
+        margin-top: 28px;
+        width: 100%;
+        padding: 14px;
+        background: linear-gradient(135deg, #5e35b1, #9b70e8);
+        border: none;
+        border-radius: 10px;
+        color: #fff;
+        font-size: 1rem;
+        font-family: "Georgia", serif;
+        cursor: pointer;
+        transition:
+          opacity 0.2s,
+          transform 0.1s;
+        letter-spacing: 0.04em;
+      }
+      .btn:hover {
+        opacity: 0.9;
+        transform: translateY(-1px);
+      }
+      .btn:active {
+        transform: translateY(0);
+      }
+      .btn:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      /* Result */
+      .result {
+        text-align: center;
+      }
+      .result-badge {
+        display: inline-block;
+        font-size: 3.2rem;
+        margin-bottom: 12px;
+      }
+      .result-title {
+        font-size: 1.6rem;
+        color: #c8b8f0;
+        margin-bottom: 10px;
+        letter-spacing: 0.02em;
+      }
+      .result-subtitle {
+        font-size: 0.9rem;
+        color: #7a7a9a;
+        font-style: italic;
+        margin-bottom: 20px;
+      }
+      .result-desc {
+        font-size: 0.97rem;
+        line-height: 1.7;
+        color: #b0aac8;
+        background: #1a1a30;
+        border: 1px solid #2a2a45;
+        border-radius: 10px;
+        padding: 18px 20px;
+        margin-bottom: 28px;
+        text-align: left;
+      }
+      .score-breakdown {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-bottom: 28px;
+        flex-wrap: wrap;
+      }
+      .score-pill {
+        background: #1e1e35;
+        border: 1px solid #2e2e50;
+        border-radius: 20px;
+        padding: 6px 16px;
+        font-size: 0.82rem;
+        color: #9a90c0;
+      }
+      .score-pill span {
+        color: #c8b0f0;
+        font-weight: bold;
+      }
+
+      .btn-retry {
+        background: transparent;
+        border: 1px solid #4a3a80;
+        color: #9a80d0;
+        border-radius: 10px;
+        padding: 12px 32px;
+        font-size: 0.92rem;
+        font-family: "Georgia", serif;
+        cursor: pointer;
+        transition:
+          background 0.18s,
+          color 0.18s;
+        letter-spacing: 0.03em;
+      }
+      .btn-retry:hover {
+        background: #28204a;
+        color: #c0a8f0;
+      }
+
+      /* Footer */
+      .footer {
+        margin-top: 36px;
+        text-align: center;
+        font-size: 0.78rem;
+        color: #3e3e5a;
+      }
+      .footer a {
+        color: #3e3e5a;
+        text-decoration: none;
+        transition: color 0.18s;
+      }
+      .footer a:hover {
+        color: #9b70e8;
+      }
+      .footer-links {
+        margin-top: 6px;
+        display: flex;
+        justify-content: center;
+        gap: 14px;
+      }
+
+      /* Hidden */
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="top-bar">
+        <button class="top-bar-btn" id="about-btn" onclick="showAbout(true)">About</button>
+        <button class="top-bar-btn" id="lang-btn" onclick="toggleLang()">Español</button>
+      </div>
+
+      <!-- Quiz view -->
+      <div id="quiz-view">
+        <div class="header">
+          <img src="img/capritism.png" alt="" class="logo" />
+          <h1 id="quiz-title">Capricorn or Autistic?</h1>
+          <p id="quiz-tagline">10 questions. Brutally honest results.</p>
+        </div>
+
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+        </div>
+        <div class="progress-label" id="progress-label">Question 1 of 10</div>
+
+        <div class="question-text" id="question-text"></div>
+
+        <div class="options" id="options"></div>
+
+        <button class="btn" id="next-btn" disabled>Next &rarr;</button>
+      </div>
+
+      <!-- Result view -->
+      <div id="result-view" class="hidden result">
+        <div class="header">
+          <img src="img/capritism.png" alt="" class="logo" />
+          <h1 id="result-title-header">Capricorn or Autistic?</h1>
+          <p id="result-tagline">Your results are in.</p>
+        </div>
+
+        <div class="result-badge" id="result-badge"></div>
+        <div class="result-title" id="result-title"></div>
+        <div class="result-subtitle" id="result-subtitle"></div>
+        <div class="result-desc" id="result-desc"></div>
+
+        <div class="score-breakdown" id="score-breakdown"></div>
+
+        <button class="btn-retry" id="retry-btn" onclick="restart()">
+          Take it again
+        </button>
+      </div>
+
+      <!-- About view -->
+      <div id="about-view" class="hidden">
+        <div style="margin-bottom: 24px">
+          <button class="top-bar-btn" id="back-btn" onclick="showAbout(false)">&larr; Back</button>
+        </div>
+        <h2 class="about-heading" id="about-heading">About</h2>
+        <div class="about-message" id="about-message"></div>
+        <p class="about-section-title" id="about-resources-heading">Neurodiversity resources</p>
+        <ul class="about-link-list" id="about-link-list"></ul>
+        <div class="about-inclusion" id="about-inclusion"></div>
+      </div>
+
+      <footer class="footer">
+        <div>hecho con amor por <a href="https://doomling.dev" target="_blank" rel="noopener noreferrer">@iamdoomling</a></div>
+        <div class="footer-links">
+          <a href="https://x.com/iamdoomling" target="_blank" rel="noopener noreferrer">𝕏</a>
+          <a href="https://instagram.com/doomling.dev" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href="https://doomling.dev" target="_blank" rel="noopener noreferrer">doomling.dev</a>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      // Scores: C = Capricorn, A = Autistic, B = Both, N = Neither
+
+      let lang = "en";
+
+      const ui = {
+        en: {
+          title: "Capricorn or Autistic?",
+          tagline: "10 questions. Brutally honest results.",
+          questionOf: (n, total) => `Question ${n} of ${total}`,
+          next: "Next \u2192",
+          resultsIn: "Your results are in.",
+          retake: "Take it again",
+          scoreLabels: ["♑ Capricorn", "∞ Autistic", "♑∞ Both", "✦ Neither"],
+          langBtn: "Espa\xf1ol",
+          aboutBtn: "About",
+          about: {
+            heading: "About",
+            back: "\u2190 Back",
+            messages: [
+              "Hi, thanks for stopping by. I made this as a small personal challenge for Neurodiversity Month \u2014 because I\u2019m autistic and a Capricorn, and it felt too on-the-nose not to make.",
+              "The intention is purely to have fun. This is not a diagnosis, not a clinical evaluation, and definitely not a birth chart (though honestly, all three serve the same purpose: trying to understand ourselves a little better).",
+              "If something here resonated \u2014 the Capricorn part, the autistic part, or both \u2014 sending you a hug.",
+            ],
+            resourcesHeading: "Neurodiversity resources",
+            links: [
+              { href: "https://autisticadvocacy.org", label: "Autistic Self Advocacy Network", desc: "Run by autistic people, for autistic people." },
+              { href: "https://neurodiversityhub.org", label: "NeuroDiversity Hub", desc: "Resources for the workplace and education." },
+              { href: "https://autismsociety.org", label: "The Autism Society", desc: "Information and support for the autistic community." },
+              { href: "https://www.understood.org", label: "Understood", desc: "Broad resources on neurodiversity." },
+            ],
+            inclusion: "Neurodiversity is not a problem to be solved. It\u2019s part of what makes the world interesting. A society that has room for different ways of thinking, feeling, and processing is richer, more creative, and more human. Celebrating diversity isn\u2019t a symbolic gesture \u2014 it\u2019s simply acknowledging who we are.",
+          },
+        },
+        es: {
+          title: "¿Autista o de Capricornio?",
+          tagline:
+            "10 preguntas para saber si culpar a tus padres o a las estrellas",
+          questionOf: (n, total) => `Pregunta ${n} de ${total}`,
+          next: "Siguiente \u2192",
+          resultsIn: "Tus resultados llegaron.",
+          retake: "Repetir",
+          scoreLabels: [
+            "♑ Capricornio",
+            "\u221e Autista",
+            "♑\u221e Los dos",
+            "\u2736 Ninguno",
+          ],
+          langBtn: "English",
+          aboutBtn: "Acerca de",
+          about: {
+            heading: "Acerca de",
+            back: "\u2190 Volver",
+            messages: [
+              "Hola, gracias por pasar por ac\xe1. Hice esta p\xe1gina como un peque\xf1o challenge personal para el Mes de la Neurodiversidad \u2014 porque soy autista y de Capricornio, y me pareci\xf3 demasiado exacto como para no hacerlo.",
+              "La intenci\xf3n es \xfanica y exclusivamente divertirse. Esto no es un diagn\xf3stico, no es una evaluaci\xf3n cl\xednica y tampoco es una carta astral (aunque en el fondo las tres sirven para lo mismo: intentar entendernos un poquito mejor).",
+              "Si algo de ac\xe1 te reson\xf3 \u2014 sea la parte Capricornio, la autista, o las dos \u2014 te mando un abrazo.",
+            ],
+            resourcesHeading: "Recursos sobre neurodiversidad",
+            links: [
+              { href: "https://autisticadvocacy.org", label: "Autistic Self Advocacy Network", desc: "Organizaci\xf3n dirigida por y para personas autistas." },
+              { href: "https://neurodiversityhub.org", label: "NeuroDiversity Hub", desc: "Recursos para el \xe1mbito laboral y educativo." },
+              { href: "https://autismsociety.org", label: "The Autism Society", desc: "Informaci\xf3n y apoyo para la comunidad autista." },
+              { href: "https://www.understood.org", label: "Understood", desc: "Recursos amplios sobre neurodiversidad en general." },
+            ],
+            inclusion: "La neurodiversidad no es un problema a resolver. Es parte de lo que hace interesante al mundo. Una sociedad con espacio para distintas formas de pensar, sentir y procesar es m\xe1s rica, m\xe1s creativa y m\xe1s humana. Celebrar la diversidad no es un gesto simb\xf3lico \u2014 es simplemente reconocer la realidad de qui\xe9nes somos.",
+          },
+        },
+      };
+
+      const questions = [
+        {
+          en: { text: "When plans change last minute, you\u2026" },
+          es: {
+            text: "Cuando los planes cambian a \xfaltimo momento, vos\u2026",
+          },
+          options: [
+            {
+              en: "Silently recalculate. You had a whole strategy mapped out.",
+              es: "Recalcul\xe1s en silencio. Ten\xedas toda una estrategia armada.",
+              score: "C",
+            },
+            {
+              en: "Feel a physical sense of wrongness that ruins the whole day.",
+              es: "Te sent\xeds f\xedsicamente mal, te arruina el d\xeda entero.",
+              score: "A",
+            },
+            {
+              en: "Immediately start crisis-managing while internally screaming.",
+              es: "Empez\xe1s a gestionar la crisis de inmediato mientras grit\xe1s por adentro.",
+              score: "B",
+            },
+            {
+              en: "Go with the flow \u2014 plans are just suggestions.",
+              es: "Te adapt\xe1s \u2014 los planes son solo sugerencias.",
+              score: "N",
+            },
+          ],
+        },
+        {
+          en: { text: "You discover a new interest. You\u2026" },
+          es: { text: "Descubr\xeds un nuevo inter\xe9s. Vos\u2026" },
+          options: [
+            {
+              en: "Research every angle until it becomes a side hustle.",
+              es: "Investig\xe1s cada \xe1ngulo hasta convertirlo en un proyecto rentable.",
+              score: "C",
+            },
+            {
+              en: "Consume every piece of content on it for six straight hours.",
+              es: "Consum\xeds todo el contenido sobre eso durante seis horas seguidas.",
+              score: "A",
+            },
+            {
+              en: "Build a color-coded spreadsheet AND spend six hours on it.",
+              es: "Arm\xe1s una planilla con colores y no par\xe1s hasta llenarla de datos.",
+              score: "B",
+            },
+            {
+              en: "Enjoy it casually and move on eventually.",
+              es: "Lo disfru\xeds de manera casual y eventualmente segu\xeds de largo.",
+              score: "N",
+            },
+          ],
+        },
+        {
+          en: { text: "At a social gathering you\u2026" },
+          es: { text: "En una reuni\xf3n social vos\u2026" },
+          options: [
+            {
+              en: "Network strategically and leave once the ROI drops.",
+              es: "Hac\xe9s networking de forma estrat\xe9gica y te vas cuando el retorno baja.",
+              score: "C",
+            },
+            {
+              en: "Rehearsed three conversation openers in advance and still feel off.",
+              es: "Ensayaste tres formas de iniciar conversaciones y aun as\xed te sent\xeds raro/a.",
+              score: "A",
+            },
+            {
+              en: "Arrived with a plan, left early, and then analyzed every conversation.",
+              es: "Llegaste con un plan, te fuiste temprano y despu\xe9s analizaste cada conversaci\xf3n.",
+              score: "B",
+            },
+            {
+              en: "Just vibed and had a genuinely great time.",
+              es: "Simplemente flu\xedste y la pasaste genial.",
+              score: "N",
+            },
+          ],
+        },
+        {
+          en: { text: "Someone gives you criticism. You\u2026" },
+          es: { text: "Alguien te critica. Vos\u2026" },
+          options: [
+            {
+              en: "Log it, assess its merit, and use it as ammunition to improve.",
+              es: "La registr\xe1s, evalu\xe1s su m\xe9rito y la us\xe1s como combustible para mejorar.",
+              score: "C",
+            },
+            {
+              en: "Can\u2019t stop replaying it at 2am for the next week.",
+              es: "No pod\xe9s dejar de repasarla a las 2am durante toda la semana siguiente.",
+              score: "A",
+            },
+            {
+              en: "Take it extremely personally AND make a self-improvement plan.",
+              es: "Te la tom\xe1s muy a pecho Y arm\xe1s un plan de mejora personal.",
+              score: "B",
+            },
+            {
+              en: "Hear it, move on, no drama.",
+              es: "La escuch\xe1s, segu\xeds adelante, sin drama.",
+              score: "N",
+            },
+          ],
+        },
+        {
+          en: { text: "How do you feel about certain textures or sounds?" },
+          es: {
+            text: "\xbfC\xf3mo te llev\xe1s con ciertas texturas o sonidos?",
+          },
+          options: [
+            {
+              en: "No strong feelings, I just need things to be high quality.",
+              es: "Sin sentimientos fuertes, solo necesito que las cosas sean de buena calidad.",
+              score: "C",
+            },
+            {
+              en: "Some fabrics are basically weapons. Certain sounds require immediate action.",
+              es: "Algunas telas son b\xe1sicamente armas. Ciertos sonidos requieren acci\xf3n inmediata.",
+              score: "A",
+            },
+            {
+              en: "Extremely particular about quality AND certain things physically bother me.",
+              es: "Muy particular con la calidad y ciertas cosas te molestan f\xedsicamente.",
+              score: "B",
+            },
+            {
+              en: "Pretty neutral \u2014 most things are fine.",
+              es: "Bastante neutral \u2014 la mayor\xeda de las cosas est\xe1n bien.",
+              score: "N",
+            },
+          ],
+        },
+        {
+          en: { text: "Your relationship with rules is\u2026" },
+          es: { text: "Tu relaci\xf3n con las reglas es\u2026" },
+          options: [
+            {
+              en: "Transactional. I follow them when they serve my goals.",
+              es: "Transaccional. Las sigo cuando me sirven para mis objetivos.",
+              score: "C",
+            },
+            {
+              en: "Either hyperfixated compliance or complete bafflement at unwritten ones.",
+              es: "O hiperfijaci\xf3n total en cumplirlas o confusi\xf3n absoluta con las no escritas.",
+              score: "A",
+            },
+            {
+              en: "I follow every official rule and also have my own stricter internal ones.",
+              es: "Sigo todas las reglas oficiales y adem\xe1s tengo las m\xedas propias, m\xe1s estrictas.",
+              score: "B",
+            },
+            {
+              en: "Pretty standard \u2014 I follow them, occasionally break them.",
+              es: "Bastante est\xe1ndar \u2014 las sigo, ocasionalmente las rompo.",
+              score: "N",
+            },
+          ],
+        },
+        {
+          en: {
+            text: "When you\u2019re explaining something you care about\u2026",
+          },
+          es: { text: "Cuando explic\xe1s algo que te importa\u2026" },
+          options: [
+            {
+              en: "I pitch it with precision \u2014 only what\u2019s relevant to your goals.",
+              es: "Lo presento con precisi\xf3n \u2014 solo lo relevante para tus objetivos.",
+              score: "C",
+            },
+            {
+              en: "I provide all necessary context, history, and related tangents.",
+              es: "Doy todo el contexto necesario, la historia y las tangentes relacionadas.",
+              score: "A",
+            },
+            {
+              en: "I give you the full context AND explain why you should care.",
+              es: "Te doy el contexto completo Y te explico por qu\xe9 deber\xeda importarte.",
+              score: "B",
+            },
+            {
+              en: "I just explain it normally and read the room.",
+              es: "Lo explico normal y leo el ambiente.",
+              score: "N",
+            },
+          ],
+        },
+        {
+          en: { text: "Your sleep schedule is\u2026" },
+          es: { text: "Tu horario de sue\xf1o es\u2026" },
+          options: [
+            {
+              en: "Disciplined. Sleep is part of my performance optimization.",
+              es: "Disciplinado. El sue\xf1o es parte de mi optimizaci\xf3n del rendimiento.",
+              score: "C",
+            },
+            {
+              en: "Chaotic \u2014 my brain refuses to stop running.",
+              es: "Ca\xf3tico \u2014 mi cerebro se niega a parar.",
+              score: "A",
+            },
+            {
+              en: "A rigid self-imposed routine that I\u2019m also frequently disrupting myself.",
+              es: "Una rutina r\xedgida autoimpuesta que yo mismo/a tambi\xe9n interrumpo frecuentemente.",
+              score: "B",
+            },
+            {
+              en: "Normal, more or less.",
+              es: "Normal, m\xe1s o menos.",
+              score: "N",
+            },
+          ],
+        },
+        {
+          en: { text: "When you make an error\u2026" },
+          es: { text: "Cuando comet\xe9s un error\u2026" },
+          options: [
+            {
+              en: "I document what went wrong, fix it, and never mention it again.",
+              es: "Documento qu\xe9 sali\xf3 mal, lo arreglo y nunca m\xe1s lo menciono.",
+              score: "C",
+            },
+            {
+              en: "I apologize multiple times over the next several days unprompted.",
+              es: "Me disculpo m\xfaltiples veces durante los d\xedas siguientes sin que nadie me lo pida.",
+              score: "A",
+            },
+            {
+              en: "I privately spiral AND build a corrective system.",
+              es: "Me espiralo internamente Y armo un sistema correctivo.",
+              score: "B",
+            },
+            {
+              en: "I acknowledge it, correct it, and genuinely move on.",
+              es: "Lo reconozco, lo corrijo y sigo adelante de verdad.",
+              score: "N",
+            },
+          ],
+        },
+        {
+          en: { text: "People close to you would say you are\u2026" },
+          es: { text: "La gente cercana dir\xeda que vos sos\u2026" },
+          options: [
+            {
+              en: "Reliable, ambitious, a little cold \u2014 but always respected.",
+              es: "Confiable, ambicioso/a, un poco fr\xedo/a \u2014 pero siempre respetado/a.",
+              score: "C",
+            },
+            {
+              en: "Intense, honest, and occasionally too much \u2014 in the best way.",
+              es: "Intenso/a, honesto/a y ocasionalmente demasiado \u2014 de la mejor manera.",
+              score: "A",
+            },
+            {
+              en: "Weirdly high-achieving but also kind of hard to read.",
+              es: "Raro/a pero muy exitoso/a y tambi\xe9n medio dif\xedcil de descifrar.",
+              score: "B",
+            },
+            {
+              en: "Just a normal, well-adjusted person, honestly.",
+              es: "Simplemente una persona normal y equilibrada, la verdad.",
+              score: "N",
+            },
+          ],
+        },
+      ];
+
+      const results = {
+        C: {
+          badge: "♑",
+          en: {
+            title: "You are a Capricorn.",
+            subtitle: "Classic. Predictable. Correct.",
+            desc: "You are methodical, strategic, and quietly convinced you are the most competent person in any given room (and you are usually right). Your control issues are actually efficiency. Your emotional unavailability is actually professionalism. You don\u2019t dislike people \u2014 you just prefer outcomes.",
+          },
+          es: {
+            title: "Sos Capricornio.",
+            subtitle: "Cl\xe1sico. Predecible. Correcto.",
+            desc: "Sos met\xf3dico/a, estrat\xe9gico/a y en silencio convencido/a de que sos la persona m\xe1s competente de cualquier habitaci\xf3n en la que entr\xe1s (y generalmente ten\xe9s raz\xf3n). Tus problemas de control en realidad son eficiencia. Tu distancia emocional en realidad es profesionalismo. No es que no te guste la gente \u2014 es que prefer\xeds los resultados.",
+          },
+        },
+        A: {
+          badge: "∞",
+          en: {
+            title: "You are Autistic.",
+            subtitle: "Neurospicy. The original kind.",
+            desc: "You experience the world with an intensity and specificity that most people can\u2019t quite access. Your brain is pattern-seeking, deeply feeling, and occasionally at war with a world that wasn\u2019t designed for how you operate. You have been described as \u201ca lot\u201d by people who are simply not enough.",
+          },
+          es: {
+            title: "Sos autista.",
+            subtitle: "Neuroespeciado/a. Del tipo original.",
+            desc: "Experiment\xe1s el mundo con una intensidad y especificidad a la que la mayor\xeda no puede acceder. Tu cerebro busca patrones, siente profundo y de vez en cuando est\xe1 en guerra con un mundo que no fue dise\xf1ado para como vos funcion\xe1s. Te han descrito como \u201cdemasiado\u201d personas que simplemente no son suficiente.",
+          },
+        },
+        B: {
+          badge: "♑∞",
+          en: {
+            title: "You are both.",
+            subtitle: "A rare and ungovernable combination.",
+            desc: "You have the relentless drive of a Capricorn AND the neurological specificity of an autistic person. You are extremely productive in very niche domains. You have strong opinions about organization systems, sensory experiences, and what constitutes acceptable behavior. People either deeply admire you or find you exhausting. Frequently both.",
+          },
+          es: {
+            title: "Sos los dos.",
+            subtitle: "Una combinaci\xf3n rara e ingobernable.",
+            desc: "Ten\xe9s la determinaci\xf3n implacable de un Capricornio Y la especificidad neurol\xf3gica de una persona autista. Sos extremadamente productivo/a en dominios muy espec\xedficos. Ten\xe9s opiniones muy firmes sobre sistemas de organizaci\xf3n, experiencias sensoriales y lo que constituye comportamiento aceptable. La gente te admira profundamente o te encuentra agotador/a. Frecuentemente las dos cosas.",
+          },
+        },
+        N: {
+          badge: "✦",
+          en: {
+            title: "You are neither.",
+            subtitle: "Statistically suspicious.",
+            desc: "You report being a flexible, low-drama, emotionally regulated human who adapts easily to change and does not overthink things. Either you are in profound denial, or you are a genuinely balanced person \u2014 a rare specimen. We respect it. We also don\u2019t fully believe you.",
+          },
+          es: {
+            title: "No sos ninguno.",
+            subtitle: "Estad\xedsticamente sospechoso.",
+            desc: "Report\xe1s ser un ser humano flexible, sin drama y emocionalmente regulado que se adapta f\xe1cilmente al cambio y no se queda dando vueltas con las cosas. O est\xe1s en profunda negaci\xf3n, o sos genuinamente una persona equilibrada \u2014 una especie rara. Lo respetamos. Tampoco te creemos del todo.",
+          },
+        },
+      };
+
+      let current = 0;
+      let answers = [];
+      let selected = null;
+      let shuffledOptions = [];
+      let lastWinner = null;
+
+      function toggleLang() {
+        lang = lang === "en" ? "es" : "en";
+        document.documentElement.lang = lang;
+        document.getElementById("lang-btn").textContent = ui[lang].langBtn;
+        document.getElementById("about-btn").textContent = ui[lang].aboutBtn;
+        document.getElementById("quiz-title").textContent = ui[lang].title;
+        document.getElementById("quiz-tagline").textContent = ui[lang].tagline;
+        document.getElementById("result-title-header").textContent = ui[lang].title;
+        document.getElementById("result-tagline").textContent = ui[lang].resultsIn;
+
+        if (!document.getElementById("quiz-view").classList.contains("hidden")) {
+          renderQuestion(false);
+        } else if (!document.getElementById("result-view").classList.contains("hidden") && lastWinner) {
+          renderResult(lastWinner);
+        } else if (!document.getElementById("about-view").classList.contains("hidden")) {
+          renderAbout();
+        }
+      }
+
+      function showAbout(show) {
+        const aboutView = document.getElementById("about-view");
+        const quizView = document.getElementById("quiz-view");
+        const resultView = document.getElementById("result-view");
+
+        if (show) {
+          quizView.classList.add("hidden");
+          resultView.classList.add("hidden");
+          aboutView.classList.remove("hidden");
+          renderAbout();
+        } else {
+          aboutView.classList.add("hidden");
+          if (lastWinner) {
+            resultView.classList.remove("hidden");
+          } else {
+            quizView.classList.remove("hidden");
+          }
+        }
+      }
+
+      function renderAbout() {
+        const a = ui[lang].about;
+        document.getElementById("about-heading").textContent = a.heading;
+        document.getElementById("back-btn").textContent = a.back;
+        document.getElementById("about-message").innerHTML = a.messages
+          .map((m) => `<p>${m}</p>`)
+          .join("");
+        document.getElementById("about-resources-heading").textContent = a.resourcesHeading;
+        document.getElementById("about-link-list").innerHTML = a.links
+          .map(
+            (l) =>
+              `<li><a href="${l.href}" target="_blank" rel="noopener noreferrer">${l.label}</a><span class="link-desc">${l.desc}</span></li>`,
+          )
+          .join("");
+        document.getElementById("about-inclusion").textContent = a.inclusion;
+      }
+
+      function shuffle(arr) {
+        return arr
+          .map((a) => ({ ...a, _sort: Math.random() }))
+          .sort((a, b) => a._sort - b._sort);
+      }
+
+      function renderQuestion(doShuffle = true) {
+        const q = questions[current];
+
+        if (doShuffle) {
+          shuffledOptions = shuffle(q.options);
+          selected = null;
+          document.getElementById("next-btn").disabled = true;
+        }
+
+        document.getElementById("question-text").textContent = q[lang].text;
+        document.getElementById("progress-label").textContent = ui[
+          lang
+        ].questionOf(current + 1, questions.length);
+        document.getElementById("progress-fill").style.width =
+          `${(current / questions.length) * 100}%`;
+        document.getElementById("next-btn").textContent = ui[lang].next;
+
+        const container = document.getElementById("options");
+        container.innerHTML = "";
+
+        shuffledOptions.forEach((opt) => {
+          const btn = document.createElement("button");
+          btn.className = "option";
+          btn.textContent = opt[lang];
+          if (opt.score === selected) btn.classList.add("selected");
+          btn.addEventListener("click", () => selectOption(btn, opt.score));
+          container.appendChild(btn);
+        });
+      }
+
+      function selectOption(btn, score) {
+        document
+          .querySelectorAll(".option")
+          .forEach((b) => b.classList.remove("selected"));
+        btn.classList.add("selected");
+        selected = score;
+        document.getElementById("next-btn").disabled = false;
+      }
+
+      document.getElementById("next-btn").addEventListener("click", () => {
+        if (selected === null) return;
+        answers.push(selected);
+
+        if (current < questions.length - 1) {
+          current++;
+          renderQuestion();
+        } else {
+          showResult();
+        }
+      });
+
+      function renderResult(winner) {
+        const r = results[winner];
+        const t = r[lang];
+        document.getElementById("result-badge").textContent = r.badge;
+        document.getElementById("result-title").textContent = t.title;
+        document.getElementById("result-subtitle").textContent = t.subtitle;
+        document.getElementById("result-desc").textContent = t.desc;
+        document.getElementById("retry-btn").textContent = ui[lang].retake;
+
+        const counts = { C: 0, A: 0, B: 0, N: 0 };
+        answers.forEach((a) => counts[a]++);
+
+        const labels = ui[lang].scoreLabels;
+        const bp = document.getElementById("score-breakdown");
+        bp.innerHTML = [
+          [labels[0], counts.C],
+          [labels[1], counts.A],
+          [labels[2], counts.B],
+          [labels[3], counts.N],
+        ]
+          .map(
+            ([label, n]) =>
+              `<div class="score-pill">${label}: <span>${n}</span></div>`,
+          )
+          .join("");
+      }
+
+      function showResult() {
+        const counts = { C: 0, A: 0, B: 0, N: 0 };
+        answers.forEach((a) => counts[a]++);
+
+        let winner = "N";
+        const max = Math.max(counts.C, counts.A, counts.B, counts.N);
+
+        if (counts.B === max) {
+          winner = "B";
+        } else if (counts.C === max && counts.A === max) {
+          winner = "B";
+        } else if (counts.C === max) {
+          winner = "C";
+        } else if (counts.A === max) {
+          winner = "A";
+        } else {
+          winner = "N";
+        }
+
+        lastWinner = winner;
+        renderResult(winner);
+
+        document.getElementById("quiz-view").classList.add("hidden");
+        document.getElementById("result-view").classList.remove("hidden");
+      }
+
+      function restart() {
+        current = 0;
+        answers = [];
+        selected = null;
+        lastWinner = null;
+        document.getElementById("result-view").classList.add("hidden");
+        document.getElementById("quiz-view").classList.remove("hidden");
+        renderQuestion();
+      }
+
+      // Init
+      renderQuestion();
+    </script>
+  </body>
+</html>
